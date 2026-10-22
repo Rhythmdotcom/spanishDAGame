@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Café Español — ZIP Archive Generator</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #FFF4E6;
+      color: #54382B;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .card {
+      background: #FFFDF9;
+      border: 3px solid #54382B;
+      border-radius: 18px;
+      padding: 40px 30px;
+      max-width: 540px;
+      box-shadow: 0 10px 25px rgba(84, 56, 43, 0.12);
+    }
+    h1 {
+      margin-top: 0;
+      color: #C96B4B;
+      font-size: 26px;
+    }
+    p {
+      line-height: 1.6;
+      color: #6B4E3D;
+      font-size: 15px;
+    }
+    .btn-download {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 16px 32px;
+      background: #C96B4B;
+      color: #FFF4E6;
+      border: 2px solid #54382B;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(201, 107, 75, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-download:hover {
+      background: #A85437;
+      transform: translateY(-2px);
+    }
+    .status-badge {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 6px 14px;
+      background: #E4ECE0;
+      color: #4A6B44;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .instructions {
+      margin-top: 25px;
+      text-align: left;
+      background: #FAF3EB;
+      padding: 16px 20px;
+      border-radius: 12px;
+      border-left: 4px solid #C96B4B;
+      font-size: 13px;
+    }
+    .instructions ol {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+    .instructions li {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="font-size: 44px; margin-bottom: 10px;">☕ 📦</div>
+    <h1>Café Español — Project ZIP Packager</h1>
+    <p>Generating your project archive for GitHub and Vercel.</p>
+    <div id="status" class="status-badge">Preparing zip archive...</div>
+    <br>
+    <a id="download-btn" class="btn-download" href="#" style="display:none;">⬇️ Click to Download cafe-espanol.zip</a>
+
+    <div class="instructions">
+      <strong>📌 How to deploy this zip to GitHub / Vercel:</strong>
+      <ol>
+        <li>Download <code>cafe-espanol.zip</code>.</li>
+        <li>Extract the zip on your computer.</li>
+        <li>Create a new repository on GitHub (e.g., <code>cafe-espanol</code>).</li>
+        <li>Drag and drop all the extracted files into the GitHub repo.</li>
+        <li>Connect the repository to Vercel — it will build and deploy instantly with zero click issues!</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    // Standard IEEE 802.3 CRC32 Table
+    const crcTable = new Uint32Array(256);
+    for (let i = 0; i < 256; i++) {
+      let c = i;
+      for (let k = 0; k < 8; k++) {
+        c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      }
+      crcTable[i] = c >>> 0;
+    }
+
+    function crc32(buf) {
+      let crc = 0xFFFFFFFF;
+      for (let i = 0; i < buf.length; i++) {
+        crc = (crc >>> 8) ^ crcTable[(crc ^ buf[i]) & 0xFF];
+      }
+      return (crc ^ 0xFFFFFFFF) >>> 0;
+    }
+
+    function buildZipBlob(files) {
+      const textEncoder = new TextEncoder();
+      const entries = [];
+      let offset = 0;
+
+      for (const file of files) {
+        const nameBytes = textEncoder.encode(file.name);
+        const dataBytes = file.data instanceof Uint8Array ? file.data : textEncoder.encode(file.data);
+        const crc = crc32(dataBytes);
+        const size = dataBytes.length;
+
+        // Local header (30 bytes + name length)
+        const header = new Uint8Array(30 + nameBytes.length);
+        const view = new DataView(header.buffer);
+        view.setUint32(0, 0x04034b50, true);
+        view.setUint16(4, 20, true);
+        view.setUint16(6, 0, true);
+        view.setUint16(8, 0, true); // Stored
+        view.setUint16(10, 0, true);
+        view.setUint16(12, 0, true);
+        view.setUint32(14, crc, true);
+        view.setUint32(18, size, true);
+        view.setUint32(22, size, true);
+        view.setUint16(26, nameBytes.length, true);
+        view.setUint16(28, 0, true);
+        header.set(nameBytes, 30);
+
+        entries.push({ nameBytes, dataBytes, header, crc, size, offset });
+        offset += header.length + dataBytes.length;
+      }
+
+      // Central Directory
+      let centralDirSize = 0;
+      const centralHeaders = [];
+      for (const entry of entries) {
+        const ch = new Uint8Array(46 + entry.nameBytes.length);
+        const view = new DataView(ch.buffer);
+        view.setUint32(0, 0x02014b50, true);
+        view.setUint16(4, 20, true);
+        view.setUint16(6, 20, true);
+        view.setUint16(8, 0, true);
+        view.setUint16(10, 0, true);
+        view.setUint16(12, 0, true);
+        view.setUint16(14, 0, true);
+        view.setUint32(16, entry.crc, true);
+        view.setUint32(20, entry.size, true);
+        view.setUint32(24, entry.size, true);
+        view.setUint16(28, entry.nameBytes.length, true);
+        view.setUint16(30, 0, true);
+        view.setUint16(32, 0, true);
+        view.setUint16(34, 0, true);
+        view.setUint16(36, 0, true);
+        view.setUint32(38, 0, true);
+        view.setUint32(42, entry.offset, true);
+        ch.set(entry.nameBytes, 46);
+
+        centralHeaders.push(ch);
+        centralDirSize += ch.length;
+      }
+
+      // End of central directory record (22 bytes)
+      const eocd = new Uint8Array(22);
+      const eocdView = new DataView(eocd.buffer);
+      eocdView.setUint32(0, 0x06054b50, true);
+      eocdView.setUint16(4, 0, true);
+      eocdView.setUint16(6, 0, true);
+      eocdView.setUint16(8, entries.length, true);
+      eocdView.setUint16(10, entries.length, true);
+      eocdView.setUint32(12, centralDirSize, true);
+      eocdView.setUint32(16, offset, true);
+      eocdView.setUint16(20, 0, true);
+
+      // Concatenate into final buffer
+      const totalLength = offset + centralDirSize + 22;
+      const zipData = new Uint8Array(totalLength);
+      let writePos = 0;
+      for (const entry of entries) {
+        zipData.set(entry.header, writePos);
+        writePos += entry.header.length;
+        zipData.set(entry.dataBytes, writePos);
+        writePos += entry.dataBytes.length;
+      }
+      for (const ch of centralHeaders) {
+        zipData.set(ch, writePos);
+        writePos += ch.length;
+      }
+      zipData.set(eocd, writePos);
+
+      return new Blob([zipData], { type: "application/zip" });
+    }
+
+    async function loadFilesAndPackage() {
+      const fileList = [
+        "index.html",
+        "style.css",
+        "bundle.js",
+        "js/data.js",
+        "js/audio.js",
+        "js/notebook.js",
+        "js/game.js",
+        "README.md",
+        "REFLECTION_TEMPLATE.md"
+      ];
+
+      const collected = [];
+      const statusEl = document.getElementById("status");
+
+      for (const path of fileList) {
+        try {
+          const res = await fetch(path);
+          if (res.ok) {
+            const text = await res.text();
+            collected.push({ name: path, data: text });
+          }
+        } catch (e) {
+          console.warn("Could not fetch " + path + " directly:", e);
+        }
+      }
+
+      if (collected.length === fileList.length) {
+        const zipBlob = buildZipBlob(collected);
+        const url = URL.createObjectURL(zipBlob);
+        const dlBtn = document.getElementById("download-btn");
+        dlBtn.href = url;
+        dlBtn.download = "cafe-espanol.zip";
+        dlBtn.style.display = "inline-block";
+        statusEl.textContent = "✓ ZIP created successfully! (" + (zipBlob.size / 1024).toFixed(1) + " KB)";
+
+        // Auto trigger download
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "cafe-espanol.zip";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        statusEl.innerHTML = "⚠️ <strong>Direct Folder Access:</strong><br>All your files are already stored directly in:<br><code>C:\\Users\\Student\\.gemini\\antigravity\\scratch\\cafe-espanol\\</code><br><br>Right-click the <strong>cafe-espanol</strong> folder in Windows Explorer and choose <strong>Compress to ZIP file</strong>!";
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", loadFilesAndPackage);
+  </script>
+</body>
+</html>

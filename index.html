@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café Español — Un café, mil historias</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-app-container">
+
+    <!-- ==================== 1. START / TITLE SCREEN ==================== -->
+    <section id="start-screen" class="game-screen active" aria-label="Pantalla de inicio">
+      <div class="vintage-tile-pattern-bar"></div>
+      
+      <div class="start-content-card">
+        <div class="cafe-sign-badge">Madrid, España</div>
+        <h1 class="game-main-title">Café Español</h1>
+        <p class="game-tagline">«Un café, mil historias»</p>
+        <p class="game-tagline-en">(One café, a thousand stories)</p>
+
+        <!-- Charming Illustrated Café Exterior Preview -->
+        <div class="cafe-facade-illustration" role="img" aria-label="Fachada acogedora de Café Español">
+          <svg viewBox="0 0 400 210" class="facade-svg">
+            <defs>
+              <linearGradient id="warmSky" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FCE5CE"/>
+                <stop offset="100%" stop-color="#FFF4E6"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="400" height="210" fill="url(#warmSky)"/>
+            <rect x="20" y="20" width="360" height="190" rx="8" fill="#FFFBF5" stroke="#54382B" stroke-width="3"/>
+            
+            <path d="M20 20 L380 20 L380 34 L20 34 Z" fill="#C96B4B"/>
+            <circle cx="50" cy="27" r="4" fill="#F4D58D"/>
+            <circle cx="110" cy="27" r="4" fill="#F4D58D"/>
+            <circle cx="170" cy="27" r="4" fill="#F4D58D"/>
+            <circle cx="230" cy="27" r="4" fill="#F4D58D"/>
+            <circle cx="290" cy="27" r="4" fill="#F4D58D"/>
+            <circle cx="350" cy="27" r="4" fill="#F4D58D"/>
+
+            <path d="M35 34 L365 34 L380 72 L20 72 Z" fill="#C96B4B" stroke="#54382B" stroke-width="2.5"/>
+            <polygon points="55,34 85,34 80,72 45,72" fill="#FFF4E6"/>
+            <polygon points="115,34 145,34 140,72 105,72" fill="#FFF4E6"/>
+            <polygon points="175,34 205,34 200,72 165,72" fill="#FFF4E6"/>
+            <polygon points="235,34 265,34 260,72 225,72" fill="#FFF4E6"/>
+            <polygon points="295,34 325,34 320,72 285,72" fill="#FFF4E6"/>
+            <polygon points="355,34 365,34 370,72 345,72" fill="#FFF4E6"/>
+            <path d="M20 72 Q35 84 50 72 Q65 84 80 72 Q95 84 110 72 Q125 84 140 72 Q155 84 170 72 Q185 84 200 72 Q215 84 230 72 Q245 84 260 72 Q275 84 290 72 Q305 84 320 72 Q335 84 350 72 Q365 84 380 72" fill="#C96B4B" stroke="#54382B" stroke-width="2"/>
+
+            <rect x="50" y="90" width="130" height="95" rx="6" fill="#F2E6D8" stroke="#54382B" stroke-width="2.5"/>
+            <rect x="58" y="98" width="54" height="40" fill="#FFF9F2"/>
+            <rect x="118" y="98" width="54" height="40" fill="#FFF9F2"/>
+            <rect x="58" y="142" width="54" height="38" fill="#FFF9F2"/>
+            <rect x="118" y="142" width="54" height="38" fill="#FFF9F2"/>
+            <rect x="44" y="185" width="142" height="14" rx="3" fill="#A7B99E" stroke="#54382B" stroke-width="2"/>
+            <circle cx="65" cy="183" r="7" fill="#6A8D73"/>
+            <circle cx="85" cy="181" r="9" fill="#DFA5A0"/>
+            <circle cx="105" cy="183" r="8" fill="#E89B38"/>
+            <circle cx="125" cy="181" r="9" fill="#DFA5A0"/>
+            <circle cx="145" cy="182" r="7" fill="#6A8D73"/>
+            <circle cx="165" cy="183" r="8" fill="#E89B38"/>
+
+            <rect x="220" y="85" width="85" height="115" rx="4" fill="#8F5B34" stroke="#54382B" stroke-width="2.5"/>
+            <rect x="232" y="95" width="61" height="50" fill="#E8F4F8" stroke="#54382B" stroke-width="2"/>
+            <text x="262" y="125" text-anchor="middle" font-family="'Playfair Display', serif" font-size="10" font-weight="bold" fill="#54382B">ABIERTO</text>
+            <circle cx="230" cy="155" r="3" fill="#F4D58D" stroke="#54382B" stroke-width="1.5"/>
+
+            <rect x="325" y="120" width="45" height="70" rx="3" fill="#3D271D" stroke="#8F5B34" stroke-width="3"/>
+            <line x1="330" y1="190" x2="320" y2="205" stroke="#8F5B34" stroke-width="3" stroke-linecap="round"/>
+            <line x1="365" y1="190" x2="375" y2="205" stroke="#8F5B34" stroke-width="3" stroke-linecap="round"/>
+            <text x="347" y="142" text-anchor="middle" font-size="8" fill="#FFF4E6" font-family="sans-serif">Churros</text>
+            <text x="347" y="156" text-anchor="middle" font-size="8" fill="#F4D58D" font-family="sans-serif">con</text>
+            <text x="347" y="170" text-anchor="middle" font-size="8" fill="#FFF4E6" font-family="sans-serif">Chocolate</text>
+          </svg>
+        </div>
+
+        <div class="start-btn-group">
+          <!-- safeStartGame() ensures 100% reliable click even before event binding or if delayed -->
+          <button id="btn-start-play" class="cozy-btn btn-primary" onclick="safeStartGame();" aria-label="Empezar a jugar">
+            <span class="btn-icon">☕</span>
+            <span class="btn-label">¡Abrir el Café! <small>(Open the Café)</small></span>
+          </button>
+          <div class="start-sub-actions">
+            <button class="cozy-btn btn-secondary btn-open-tutorial" onclick="safeOpenTutorial();">
+              <span>📖</span> Cómo jugar
+            </button>
+            <button class="cozy-btn btn-secondary btn-open-notebook" onclick="safeOpenNotebook();">
+              <span>📓</span> Vocabulario (38+ palabras)
+            </button>
+          </div>
+        </div>
+
+        <footer class="start-screen-credits">
+          <p>Proyecto Universitario de Lengua Española y Cultura Gastronómica</p>
+          <p class="credits-author">Creado por <strong>Hemasri Kumar</strong></p>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ==================== 2. MAIN GAME SCREEN ==================== -->
+    <main id="game-screen" class="game-screen" aria-label="Pantalla de juego">
+      
+      <!-- Top HUD Bar -->
+      <header class="hud-top-bar" role="banner">
+        <div class="hud-brand-zone">
+          <span class="brand-coffee-icon">☕</span>
+          <div class="brand-texts">
+            <h2 class="hud-title">Café Español</h2>
+            <span id="hud-level" class="hud-level-badge">Día 1: Mañana en Malasaña</span>
+          </div>
+        </div>
+
+        <div class="hud-stats-zone">
+          <div class="stat-pill" title="Monedas ganadas (Coins)">
+            <span class="stat-icon">🪙</span>
+            <span id="hud-coins" class="stat-value">60 🪙</span>
+          </div>
+          <div class="stat-pill" title="Puntuación (Score)">
+            <span class="stat-icon">⭐</span>
+            <span id="hud-score" class="stat-value">0 pts</span>
+          </div>
+          <div class="stat-pill satisfaction-pill" title="Satisfacción del vecindario">
+            <span class="stat-icon">❤️</span>
+            <div class="satisfaction-meter-wrap">
+              <div id="hud-satisfaction-bar" class="satisfaction-bar-fill" style="width: 100%;"></div>
+            </div>
+            <span id="hud-satisfaction" class="stat-value">100%</span>
+          </div>
+        </div>
+
+        <nav class="hud-actions-zone" aria-label="Acciones de juego">
+          <button id="btn-mute" class="hud-btn" title="Silenciar / Activar sonido">
+            <span>🔔</span><span class="hud-btn-label">Sonido</span>
+          </button>
+          <button class="hud-btn btn-open-notebook" title="Abrir cuaderno de vocabulario">
+            <span>📓</span><span class="hud-btn-label">Vocabulario</span>
+          </button>
+          <button class="hud-btn btn-open-tutorial" title="Ver guía de juego">
+            <span>❓</span><span class="hud-btn-label">Ayuda</span>
+          </button>
+          <button id="btn-hud-credits" class="hud-btn" title="Ver créditos">
+            <span>ℹ️</span><span class="hud-btn-label">Créditos</span>
+          </button>
+          <button id="btn-hud-pause" class="hud-btn" title="Pausar juego">
+            <span>⏸️</span><span class="hud-btn-label">Pausa</span>
+          </button>
+        </nav>
+      </header>
+
+      <!-- Hanging Clothespin Order Ticket -->
+      <div id="hanging-order-ticket" class="order-ticket-tag" title="Haz clic para ver la comanda en detalle">
+        <div class="clothespin-clip"></div>
+        <div class="ticket-paper">
+          <div class="ticket-header">
+            <span>COMANDA</span>
+            <small id="ticket-customer-name">Cliente: Lucía</small>
+          </div>
+          <p id="ticket-summary-text" class="ticket-body">1x Café con leche</p>
+        </div>
+      </div>
+
+      <!-- Feedback Banner -->
+      <div id="feedback-banner" class="feedback-banner" role="status" aria-live="polite"></div>
+
+      <!-- ==================== VIEW A: FRONT COUNTER (Register View) ==================== -->
+      <section id="cafe-counter-view" class="counter-scene-container" aria-label="Mostrador del cliente">
+        
+        <div class="stage-hanging-lamps">
+          <div class="hanging-lamp lamp-left">
+            <div class="lamp-cord"></div>
+            <div class="lamp-shade"></div>
+            <div class="lamp-glow"></div>
+          </div>
+          <div class="hanging-lamp lamp-right">
+            <div class="lamp-cord"></div>
+            <div class="lamp-shade"></div>
+            <div class="lamp-glow"></div>
+          </div>
+        </div>
+
+        <div class="counter-stage-area">
+          <div class="counter-customer-area">
+            <div id="counter-customer-avatar" class="customer-avatar-container"></div>
+            <div class="customer-info-tag">
+              <span id="counter-customer-name" class="customer-name">Lucía</span>
+              <span id="counter-customer-title" class="customer-title">Estudiante de Bellas Artes</span>
+            </div>
+          </div>
+
+          <div class="counter-speech-bubble" role="region" aria-label="Diálogo del cliente">
+            <div class="speech-bubble-tail"></div>
+            
+            <div class="speech-header-row">
+              <span class="speech-order-badge">Pedido en español</span>
+              
+              <div class="patience-container" title="Paciencia del cliente">
+                <span class="patience-label">Paciencia:</span>
+                <div class="patience-bar-track">
+                  <div id="patience-bar-fill" class="patience-bar-fill"></div>
+                </div>
+                <span id="patience-time-text" class="patience-time">36s</span>
+              </div>
+            </div>
+
+            <p id="counter-speech-spanish" class="speech-spanish">
+              «¡Hola! Para empezar bien el día necesito mitad café espresso y mitad leche templada.»
+            </p>
+
+            <p id="counter-speech-english" class="speech-english">
+              Hello! To start the day right I need half espresso and half warm milk.
+            </p>
+
+            <div class="speech-actions-row">
+              <button id="btn-ask-que" class="btn-ask-que" title="Pedir una aclaración directa al cliente">
+                <span>❓</span> <span>«¿Qué?» (Pardon?)</span>
+              </button>
+              
+              <button id="btn-hint-toggle" class="btn-hint" title="Ver traducción al inglés">
+                <span>💡</span> <span>Pista (Translation)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="front-wooden-counter-bar">
+          <div class="counter-props-row">
+            <div class="tip-jar-prop" title="Bote de propinas del café">
+              <div class="jar-lid"></div>
+              <div class="jar-glass">
+                <span class="jar-label">PROPINAS</span>
+                <div id="tip-jar-coins" class="jar-coins-pile">🪙🪙</div>
+              </div>
+            </div>
+
+            <button id="btn-go-to-kitchen" class="cozy-btn btn-go-kitchen">
+              <span class="btn-kitchen-icon">👨‍🍳</span>
+              <div class="btn-kitchen-text">
+                <span class="main-label">¡A la Cocina! Preparar platos</span>
+                <small class="sub-label">(Cook & Heat Station ➔)</small>
+              </div>
+            </button>
+
+            <div id="service-counter-bell" class="service-bell-prop" title="¡Toca la campanilla! (Click to ring ding!)">
+              <div class="bell-button"></div>
+              <div class="bell-dome"></div>
+              <div class="bell-base"></div>
+              <span class="bell-ding-label">Ding!</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==================== VIEW B: KITCHEN PREPARATION BENCH ==================== -->
+      <section id="cafe-kitchen-view" class="kitchen-scene-container" style="display: none;" aria-label="Mesa de preparación culinaria">
+        
+        <div class="kitchen-top-nav">
+          <button id="btn-back-to-counter" class="cozy-btn btn-secondary">
+            <span>⬅️</span> Volver al mostrador <small>(Back to Counter)</small>
+          </button>
+          <div class="kitchen-heading-tag">
+            <span>Mesa de Elaboración y Cocina</span>
+            <small>Calienta, vierte, espolvorea y elabora cada plato artesanalmente</small>
+          </div>
+        </div>
+
+        <div class="kitchen-bench-layout">
+          
+          <!-- Column 1: Shelf to select recipe -->
+          <div class="kitchen-recipe-shelf">
+            <div class="shelf-section">
+              <h4 class="shelf-title">☕ Bebidas</h4>
+              <div id="shelf-drinks-list" class="shelf-cards-grid"></div>
+            </div>
+            <div class="shelf-section">
+              <h4 class="shelf-title">🥐 Comida y Bollería</h4>
+              <div id="shelf-food-list" class="shelf-cards-grid"></div>
+            </div>
+          </div>
+
+          <!-- Column 2: Active Crafting Station -->
+          <div class="active-crafting-station">
+            <div class="station-worktop">
+              <div class="worktop-header">
+                <span class="worktop-badge">Mesa de Cocina</span>
+                <h3 id="craft-item-name" class="craft-dish-title">Café con leche</h3>
+                <p id="craft-dish-desc" class="craft-dish-desc">Café espresso suave con leche cremosa vaporizada.</p>
+              </div>
+
+              <!-- Visual Platter showing the dish in progress -->
+              <div id="craft-dish-visual" class="craft-visual-platter"></div>
+
+              <!-- Interactive Step-by-Step Action Buttons -->
+              <div id="craft-actions-container" class="craft-actions-container"></div>
+
+              <!-- Move finished product to tray -->
+              <div id="craft-finish-row" class="craft-finish-row" style="display: none;">
+                <button id="btn-transfer-to-tray" class="cozy-btn btn-primary btn-transfer-tray">
+                  <span>🍽️</span> ¡Listo! Colocar en la bandeja <small>(Place on Tray +15 pts)</small>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Tray & Deliver -->
+          <aside class="kitchen-tray-sidebar" aria-label="Bandeja de entrega">
+            <div class="tray-sidebar-header">
+              <h3>La Bandeja del Pedido</h3>
+              <button id="btn-clear-tray" class="btn-trash-discard" title="Descartar productos (Atajo: C)">
+                <span>🗑️</span> Vaciar
+              </button>
+            </div>
+
+            <div class="wooden-tray-container">
+              <div id="tray-empty-notice" class="tray-empty-notice">
+                <span>🍽️</span>
+                <p>La bandeja está vacía.</p>
+                <small>Elabora las recetas y colócalas en la bandeja.</small>
+              </div>
+              <div id="tray-items-list" class="tray-items-list"></div>
+            </div>
+
+            <button id="btn-serve-order" class="cozy-btn btn-serve" disabled>
+              <span class="serve-icon">🔔</span>
+              <span class="serve-text">¡Servir al cliente!</span>
+              <small class="serve-subtext">(Ding bell & serve order)</small>
+            </button>
+          </aside>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- ==================== 3. END OF DAY NEWSPAPER MODAL ==================== -->
+    <div id="newspaper-modal" class="game-modal" role="dialog" aria-modal="true" aria-labelledby="newspaper-headline" aria-hidden="true">
+      <div class="modal-dialog newspaper-dialog">
+        <div class="newspaper-page">
+          <header class="newspaper-header">
+            <div class="newspaper-top-bar">
+              <span class="news-city">MADRID DIARIO ILUSTRADO</span>
+              <span id="newspaper-day-title" class="news-edition">Edición Día 1</span>
+              <span class="news-price">Precio: 5 Céntimos</span>
+            </div>
+            <h2 id="newspaper-headline" class="newspaper-main-headline">«¡FUROR EN EL BARRIO POR EL NUEVO CAFÉ!»</h2>
+          </header>
+
+          <div class="newspaper-body-layout">
+            <div class="newspaper-story-col">
+              <p id="newspaper-story" class="newspaper-p-es">
+                Los vecinos de Malasaña han quedado fascinados con la atención y el delicioso café con leche recién servido.
+              </p>
+              <p id="newspaper-story-en" class="newspaper-p-en">
+                Locals are fascinated by the attentive service and delicious coffee.
+              </p>
+            </div>
+
+            <div class="newspaper-financial-col">
+              <h4 class="financial-heading">Balance de la Jornada</h4>
+              <div class="financial-line">
+                <span>Ventas totales:</span>
+                <strong id="newspaper-stat-sales">+0 🪙</strong>
+              </div>
+              <div class="financial-line">
+                <span>Bote de propinas:</span>
+                <strong id="newspaper-stat-tips">+0 🪙</strong>
+              </div>
+              <div class="financial-line">
+                <span>Precisión del barista:</span>
+                <strong id="newspaper-stat-accuracy">100%</strong>
+              </div>
+              <div class="financial-line">
+                <span>Vocabulario aprendido:</span>
+                <strong id="newspaper-stat-vocab">0 / 38</strong>
+              </div>
+            </div>
+          </div>
+
+          <footer class="newspaper-footer-row">
+            <button id="btn-newspaper-continue" class="cozy-btn btn-primary">
+              Comenzar siguiente jornada ☕
+            </button>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 4. VICTORY / FINAL RESULTS SCREEN ==================== -->
+    <section id="end-screen" class="game-screen" aria-label="Resultados finales">
+      <div class="vintage-tile-pattern-bar"></div>
+      
+      <div class="end-content-card">
+        <div class="end-trophy-badge">🏆 ¡Jornada Completa!</div>
+        <h1 class="end-title">¡Enhorabuena, Barista!</h1>
+        <p class="end-tagline">Has servido a todo el barrio y te has ganado el cariño de Madrid.</p>
+        <p class="end-tagline-en">(Congratulations! You served all customers and won the heart of Madrid.)</p>
+
+        <div class="end-stats-summary-grid">
+          <div class="end-stat-box">
+            <span class="end-stat-icon">⭐</span>
+            <span class="end-stat-label">Puntuación Total</span>
+            <span id="end-stat-score" class="end-stat-val">0</span>
+          </div>
+          <div class="end-stat-box">
+            <span class="end-stat-icon">🪙</span>
+            <span class="end-stat-label">Monedas Ganadas</span>
+            <span id="end-stat-coins" class="end-stat-val">0 🪙</span>
+          </div>
+          <div class="end-stat-box">
+            <span class="end-stat-icon">👥</span>
+            <span class="end-stat-label">Clientes Satisfechos</span>
+            <span id="end-stat-served" class="end-stat-val">0</span>
+          </div>
+          <div class="end-stat-box">
+            <span class="end-stat-icon">🎯</span>
+            <span class="end-stat-label">Precisión de Pedidos</span>
+            <span id="end-stat-accuracy" class="end-stat-val">100%</span>
+          </div>
+          <div class="end-stat-box">
+            <span class="end-stat-icon">📓</span>
+            <span class="end-stat-label">Vocabulario Dominado</span>
+            <span id="end-stat-vocab" class="end-stat-val">0 / 38</span>
+          </div>
+          <div class="end-stat-box">
+            <span class="end-stat-icon">❤️</span>
+            <span class="end-stat-label">Felicidad del Barrio</span>
+            <span id="end-stat-satisfaction" class="end-stat-val">100%</span>
+          </div>
+        </div>
+
+        <div class="end-farewell-quote">
+          <p class="quote-es">«En un café de Madrid nunca estás solo: siempre hay una buena charla, un café humeante y una sonrisa.»</p>
+          <p class="quote-en">"In a Madrid café you are never alone: there is always good conversation, steaming coffee, and a friendly smile."</p>
+        </div>
+
+        <div class="end-actions-row">
+          <button id="btn-restart-game" class="cozy-btn btn-primary">
+            <span>🔄</span> Jugar otra vez <small>(Play Again)</small>
+          </button>
+        </div>
+
+        <footer class="end-screen-footer">
+          <p>Proyecto Universitario de Español — Desarrollado por <strong>Hemasri Kumar</strong></p>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ==================== 5. MODALS & POPUPS ==================== -->
+
+    <!-- Vocabulary Notebook Modal -->
+    <div id="notebook-modal" class="game-modal" role="dialog" aria-modal="true" aria-labelledby="notebook-modal-title" aria-hidden="true">
+      <div class="modal-dialog notebook-dialog">
+        <header class="modal-header">
+          <div class="modal-title-wrap">
+            <span class="modal-title-icon">📓</span>
+            <div>
+              <h2 id="notebook-modal-title" class="modal-title">Cuaderno de Vocabulario</h2>
+              <span class="modal-subtitle">Vocabulario y Cultura Gastronómica de Madrid</span>
+            </div>
+          </div>
+          <div class="modal-header-actions">
+            <span id="notebook-counter" class="notebook-counter-badge">0 / 38 aprendidas</span>
+            <button id="notebook-close-btn" class="modal-close-btn" aria-label="Cerrar">&times;</button>
+          </div>
+        </header>
+
+        <div class="notebook-controls-bar">
+          <div class="notebook-search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="notebook-search" placeholder="Buscar palabra en español o inglés..." aria-label="Buscar palabra">
+          </div>
+          
+          <nav class="notebook-tabs-nav" aria-label="Categorías de vocabulario">
+            <button class="notebook-tab active" data-category="all">Todas</button>
+            <button class="notebook-tab" data-category="greetings">Saludos</button>
+            <button class="notebook-tab" data-category="food-drink">Comida y Bebida</button>
+            <button class="notebook-tab" data-category="expressions">Expresiones y Verbos</button>
+            <button class="notebook-tab" data-category="culture">🇪🇸 Cultura de Madrid</button>
+          </nav>
+        </div>
+
+        <div class="modal-scrollable-body">
+          <div id="notebook-vocab-list" class="vocab-cards-grid"></div>
+          <div id="notebook-culture-list" class="culture-cards-grid" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How To Play Modal -->
+    <div id="tutorial-modal" class="game-modal" role="dialog" aria-modal="true" aria-labelledby="tutorial-title" aria-hidden="true">
+      <div class="modal-dialog">
+        <header class="modal-header">
+          <div class="modal-title-wrap">
+            <span class="modal-title-icon">📖</span>
+            <div>
+              <h2 id="tutorial-title" class="modal-title">Cómo Jugar a Café Español</h2>
+              <span class="modal-subtitle">Inspirado en la preparación táctil de Good Pizza, Great Pizza</span>
+            </div>
+          </div>
+          <button class="modal-close-btn modal-close-trigger" aria-label="Cerrar">&times;</button>
+        </header>
+
+        <div class="modal-scrollable-body tutorial-body">
+          <div class="tutorial-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Habla con los clientes en el mostrador</h4>
+              <p>Cada cliente entra y pide en español. Toca <strong>«¿Qué?»</strong> para pedir una aclaración si la frase es misteriosa.</p>
+              <small class="step-en">Take orders at the register counter. Click "¿Qué?" for direct clarification!</small>
+            </div>
+          </div>
+
+          <div class="tutorial-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Pasa a la mesa de cocina</h4>
+              <p>Haz clic en <strong>«¡A la Cocina!»</strong>. En la mesa de elaboración puedes <strong>calentar croissants en el horno</strong>, <strong>verter café y leche al vapor</strong>, <strong>espolvorear canela y azúcar en los churros</strong> o <strong>untar tomate rallado con aceite</strong>.</p>
+              <small class="step-en">Switch to the workbench to heat pastries in the oven, brew espresso, pour milk, and dust cinnamon!</small>
+            </div>
+          </div>
+
+          <div class="tutorial-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Coloca el plato en la bandeja</h4>
+              <p>Cuando termines de elaborar la receta paso a paso, pulsa <strong>«¡Listo! Colocar en la bandeja»</strong>.</p>
+              <small class="step-en">When crafting is complete, click to move the dish to the customer's tray.</small>
+            </div>
+          </div>
+
+          <div class="tutorial-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Toca la campana y sirve</h4>
+              <p>Entrega el pedido a tiempo para recibir elogios y monedas de propina en el bote de cristal.</p>
+              <small class="step-en">Ring the service bell to serve and collect tips!</small>
+            </div>
+          </div>
+
+          <div class="modal-footer-btn-wrap">
+            <button class="cozy-btn btn-primary modal-close-trigger">
+              ¡Entendido, vamos a cocinar!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pause Modal -->
+    <div id="pause-modal" class="game-modal" role="dialog" aria-modal="true" aria-labelledby="pause-title" aria-hidden="true">
+      <div class="modal-dialog small-dialog">
+        <header class="modal-header">
+          <div class="modal-title-wrap">
+            <span class="modal-title-icon">⏸️</span>
+            <div>
+              <h2 id="pause-title" class="modal-title">Juego en Pausa</h2>
+              <span class="modal-subtitle">Tómate un respiro</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="modal-scrollable-body pause-body">
+          <p class="pause-message">El cronómetro de paciencia se encuentra detenido.</p>
+          <div class="pause-actions-list">
+            <button id="btn-resume-game" class="cozy-btn btn-primary">
+              <span>▶️</span> Reanudar jornada <small>(Resume)</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credits Modal -->
+    <div id="credits-modal" class="game-modal" role="dialog" aria-modal="true" aria-labelledby="credits-title" aria-hidden="true">
+      <div class="modal-dialog">
+        <header class="modal-header">
+          <div class="modal-title-wrap">
+            <span class="modal-title-icon">ℹ️</span>
+            <div>
+              <h2 id="credits-title" class="modal-title">Créditos y Proyecto</h2>
+              <span class="modal-subtitle">Asignación Universitaria de Español</span>
+            </div>
+          </div>
+          <button class="modal-close-btn modal-close-trigger" aria-label="Cerrar">&times;</button>
+        </header>
+
+        <div class="modal-scrollable-body credits-body">
+          <div class="credits-author-highlight">
+            <h3>Café Español — Simulación de Cafetería Madrileña</h3>
+            <p>Proyecto original desarrollado por: <strong>Hemasri Kumar</strong></p>
+            <p class="author-subtext">Estudiante de Lengua Española y Cultura Hispánica</p>
+          </div>
+
+          <div class="credits-section-box">
+            <h4>🎯 Objetivos Pedagógicos</h4>
+            <ul>
+              <li>Inmersión interactiva en el vocabulario culinario y de cortesía español (más de 38 términos y verbos auténticos).</li>
+              <li>Mecánicas táctiles de cocina y elaboración artesanal inspiradas en <em>Good Pizza, Great Pizza</em>.</li>
+              <li>Apreciación de la gastronomía y costumbres sociales de Madrid (la sobremesa, el desayuno tradicional, el bocadillo).</li>
+            </ul>
+          </div>
+
+          <div class="modal-footer-btn-wrap">
+            <button class="cozy-btn btn-secondary modal-close-trigger">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modular scripts (Primary) -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/notebook.js"></script>
+  <script src="js/game.js"></script>
+  <!-- Root bundle fallback (Instantly activates if js/ subfolder is missing or blocked on Vercel) -->
+  <script src="bundle.js"></script>
+
+  <!-- =========================================================================
+       INLINE FAILSAFE ENGINE (Guarantees Vercel & GitHub Work 100% Even if
+       DOMContentLoaded fired or if any script loading was asynchronous)
+       ========================================================================= -->
+  <script>
+    // Global safe triggers attached to window for instant response
+    function safeStartGame() {
+      try {
+        if (typeof initCafeGame === "function") {
+          initCafeGame();
+        }
+        if (!window.game && typeof CafeGame !== "undefined") {
+          if (typeof VocabularyNotebook !== "undefined" && !window.notebook) {
+            window.notebook = new VocabularyNotebook();
+          }
+          window.game = new CafeGame();
+        }
+        if (window.game) {
+          if (window.audio && typeof window.audio.init === "function") {
+            window.audio.init();
+            window.audio.playTap();
+          }
+          window.game.startGame();
+        } else {
+          console.error("Game engine is still loading. Please check console for script load status.");
+        }
+      } catch (err) {
+        console.error("safeStartGame error:", err);
+      }
+    }
+
+    function safeOpenTutorial() {
+      try {
+        if (typeof initCafeGame === "function") initCafeGame();
+        if (window.game) {
+          window.game.openTutorial();
+        }
+      } catch(e) { console.error(e); }
+    }
+
+    function safeOpenNotebook() {
+      try {
+        if (typeof initCafeGame === "function") initCafeGame();
+        if (window.notebook) {
+          window.notebook.open();
+        }
+      } catch(e) { console.error(e); }
+    }
+
+    (function() {
+      function checkAndBootstrap() {
+        // Fallback: If external js/ scripts were missing or 404'd by Vercel, attempt to load bundle.js
+        if (typeof GAME_DATA === "undefined") {
+          console.warn("External js/ data not detected. Attempting fallback to root bundle.js...");
+          var script = document.createElement("script");
+          script.src = "bundle.js";
+          script.onload = function() {
+            if (typeof initCafeGame === "function") initCafeGame();
+          };
+          document.body.appendChild(script);
+          return;
+        }
+
+        // Resilient initialization
+        if (typeof initCafeGame === "function") {
+          initCafeGame();
+        } else if (typeof CafeGame !== "undefined" && !window.game) {
+          try {
+            if (typeof VocabularyNotebook !== "undefined" && !window.notebook) {
+              window.notebook = new VocabularyNotebook();
+            }
+            window.game = new CafeGame();
+            console.log("Café Español initialized successfully!");
+          } catch(e) {
+            console.error("Initialization error:", e);
+          }
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", checkAndBootstrap);
+      } else {
+        checkAndBootstrap();
+      }
+
+      // Start button fallback listener
+      var startBtn = document.getElementById("btn-start-play");
+      if (startBtn) {
+        startBtn.addEventListener("click", safeStartGame);
+      }
+    })();
+  </script>
+</body>
+</html>
